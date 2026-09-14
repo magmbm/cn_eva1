@@ -37,7 +37,7 @@ public class HealthCheckController {
     }
 
     @GetMapping("/cont")
-    public Integer getNumero() {
-        return 150;
+    public String getNumero() {
+        return "Numero 150";
     }
 }

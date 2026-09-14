@@ -35,4 +35,9 @@ public class HealthCheckController {
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponse);
         }
     }
+
+    @GetMapping("/cont")
+    public Integer getNumero() {
+        return 150;
+    }
 }

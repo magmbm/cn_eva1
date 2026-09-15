@@ -1,9 +1,13 @@
 package com.docente.proyectoejemplo.Entidades;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 public class Mascota {
-    @Column 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id; 
     @Column 
     private Short edad;

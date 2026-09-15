@@ -2,10 +2,14 @@ package com.docente.proyectoejemplo.Entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity 
 public class Especie {
-    @Column 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;
 
     @Column 

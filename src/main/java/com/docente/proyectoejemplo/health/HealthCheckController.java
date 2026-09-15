@@ -37,7 +37,7 @@ public class HealthCheckController {
     }
 
     @GetMapping("/cont")
-    public ResponseEntity getNumero() {
+    public ResponseEntity<String> getNumero() {
         return ResponseEntity.status(200).body("150");
     }
 }

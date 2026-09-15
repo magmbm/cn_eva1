@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 public class Mascota {
     @Id 
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id_mascota")
     private Short id;
 
     @Column(name = "edad_mascota")

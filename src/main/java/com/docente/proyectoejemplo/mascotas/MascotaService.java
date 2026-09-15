@@ -26,5 +26,8 @@ public class MascotaService {
         return mascota.get();
     }
     
+    public Mascota registrar(Mascota mascota) {
+        return this.mascotasRepo.save(mascota);
+    }
     
 }

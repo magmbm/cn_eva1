@@ -27,7 +27,14 @@ public class Mascota {
     @Column(name= "especie")
     private String especie;
 
-    public Short getId() {
+    public Mascota(Short edad, String nombre, boolean vacunado, String especie) {
+		this.edad = edad;
+		this.nombre = nombre;
+		this.vacunado = vacunado;
+		this.especie = especie;
+	}
+
+	public Short getId() {
         return id;
     }
 

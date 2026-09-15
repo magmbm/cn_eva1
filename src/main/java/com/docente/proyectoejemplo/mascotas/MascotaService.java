@@ -18,7 +18,7 @@ public class MascotaService {
         return this.mascotasRepo.findAll();
     }
 
-    public Mascota getById(Short idMascota) {
+    public Mascota getById(Integer idMascota) {
         Optional<Mascota> mascota= this.mascotasRepo.findById(idMascota);
         if (mascota.isEmpty()) {
             return null;

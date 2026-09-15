@@ -13,10 +13,10 @@ public class Mascota {
     @Id 
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id_mascota")
-    private Short id;
+    private Integer id;
 
     @Column(name = "edad_mascota")
-    private Short edad;
+    private Integer edad;
 
     @Column(name= "nombre_mascota")
     private String nombre;
@@ -27,26 +27,30 @@ public class Mascota {
     @Column(name= "especie")
     private String especie;
 
-    public Mascota(Short edad, String nombre, boolean vacunado, String especie) {
+    public Mascota(Integer edad, String nombre, boolean vacunado, String especie) {
 		this.edad = edad;
 		this.nombre = nombre;
 		this.vacunado = vacunado;
 		this.especie = especie;
 	}
 
-	public Short getId() {
+    public Mascota(){
+
+    }
+
+	public Integer getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Short getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(Short edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 

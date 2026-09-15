@@ -1,11 +1,9 @@
-package com.docente.proyectoejemplo.servicios;
+package com.docente.proyectoejemplo.mascotas;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.docente.proyectoejemplo.Entidades.Mascota;
+import com.docente.proyectoejemplo.mascotas.entity.Mascota;
 import java.util.List;
-import com.docente.proyectoejemplo.repositorios.MascotasRepo;
 import java.util.Optional;
 
 @Service 
@@ -27,6 +25,6 @@ public class MascotaService {
         }        
         return mascota.get();
     }
-
+    
     
 }

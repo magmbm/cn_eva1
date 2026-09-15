@@ -1,8 +1,8 @@
-package com.docente.proyectoejemplo.repositorios;
+package com.docente.proyectoejemplo.mascotas;
 
 import org.springframework.stereotype.Repository;
 
-import com.docente.proyectoejemplo.Entidades.Mascota;
+import com.docente.proyectoejemplo.mascotas.entity.Mascota;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

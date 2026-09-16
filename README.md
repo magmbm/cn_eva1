@@ -15,6 +15,7 @@ cada petición enviada por la API Gateway, este valor **secreto** es ingresado a
 backend pueda conocer el valor) y en los parametros de la integración de las rutas de la API Gateway ingresamos este valor secreto.
 
 **Acceso por ROLES**
+
 <img width="683" height="227" alt="Captura de pantalla 2026-09-16 a la(s) 10 25 31" src="https://github.com/user-attachments/assets/31d0f2ed-0910-4ed5-901f-57029efd74f1" />
 
 El sistema tiene 3 roles: 'Admin', 'Vet' y 'Owner'. Los endpoints del sistema cubren las funcionalidades del modelo **C.R.U.D**, a continuación 

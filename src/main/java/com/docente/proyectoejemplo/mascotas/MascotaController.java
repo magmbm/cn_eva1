@@ -44,7 +44,7 @@ public class MascotaController {
     }
 
     @PreAuthorize ("hasAnyRole('Admin')")
-    @DeleteMapping("/eliminar")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Mascota> eliminarMascota(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
     }

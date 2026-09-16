@@ -3,6 +3,8 @@ package com.docente.proyectoejemplo.mascotas;
 import org.springframework.stereotype.Service;
 
 import com.docente.proyectoejemplo.mascotas.entity.Mascota;
+
+import java.lang.foreign.Linker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,16 @@ public class MascotaService {
     
     public Mascota registrar(Mascota mascota) {
         return this.mascotasRepo.save(mascota);
+    }
+
+    public Mascota eliminar(Integer id) {
+        Optional<Mascota> mascota= this.mascotasRepo.findById(id);
+        if (mascota.isPresent()) {
+            Mascota eliminar= mascota.get();
+            this.mascotasRepo.delete(eliminar);
+            return eliminar;
+        }
+        return null;
     }
     
 }

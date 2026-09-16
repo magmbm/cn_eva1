@@ -38,7 +38,7 @@ public class MascotaController {
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @PostMapping("/registrar")
     public ResponseEntity<Mascota> registrarMascota(@RequestBody  Mascota mascota) {
-        Mascota nuevo= new Mascota(mascota.getEdad(), mascota.getNombre(), mascota.isVacunado(), mascota.getEspecie());
+        Mascota nuevo= new Mascota(mascota.getEdad(), mascota.getNombre(), mascota.isVacunado(), mascota.getEspecie(), mascota.getSexo());
         mascotaService.registrar(nuevo);
         return ResponseEntity.status(201).body(nuevo);
     }

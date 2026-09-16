@@ -27,11 +27,23 @@ public class Mascota {
     @Column(name= "especie")
     private String especie;
 
-    public Mascota(Integer edad, String nombre, boolean vacunado, String especie) {
+    @Column(name="sexo")
+    private String sexo;
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public Mascota(Integer edad, String nombre, boolean vacunado, String especie, String sexo) {
 		this.edad = edad;
 		this.nombre = nombre;
 		this.vacunado = vacunado;
 		this.especie = especie;
+        this.sexo= sexo;
 	}
 
     public Mascota(){

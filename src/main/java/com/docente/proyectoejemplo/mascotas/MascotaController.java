@@ -55,6 +55,7 @@ public class MascotaController {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
     }
 
+    //
     /*
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @GetMapping("/gordito")

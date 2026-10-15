@@ -30,6 +30,17 @@ public class Mascota {
     @Column(name="sexo")
     private String sexo;
 
+    @Column (name="peso_mascota")
+    private double peso;
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
     public String getSexo() {
         return sexo;
     }
@@ -38,12 +49,13 @@ public class Mascota {
         this.sexo = sexo;
     }
 
-    public Mascota(Integer edad, String nombre, boolean vacunado, String especie, String sexo) {
+    public Mascota(Integer edad, String nombre, boolean vacunado, String especie, String sexo, Double peso) {
 		this.edad = edad;
 		this.nombre = nombre;
 		this.vacunado = vacunado;
 		this.especie = especie;
         this.sexo= sexo;
+        this.peso= peso;
 	}
 
     public Mascota(){

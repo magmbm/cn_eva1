@@ -2,6 +2,8 @@ package com.docente.proyectoejemplo.mascotas;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -17,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController 
 @RequestMapping("/api/mascotas")
 public class MascotaController {
+
+    @Value("${lambda.base.url}") 
+    private String lambdaBaseURL;
+
     private final MascotaService mascotaService; 
 
     public MascotaController(MascotaService mascotaService) {
@@ -30,7 +36,7 @@ public class MascotaController {
     }
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
-    @GetMapping("/ver/{id}")
+    @GetMapping("/listar/{id}")
     public ResponseEntity<Mascota> getMascota(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(mascotaService.getById(id));
     }
@@ -38,7 +44,7 @@ public class MascotaController {
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @PostMapping("/registrar")
     public ResponseEntity<Mascota> registrarMascota(@RequestBody  Mascota mascota) {
-        Mascota nuevo= new Mascota(mascota.getEdad(), mascota.getNombre(), mascota.isVacunado(), mascota.getEspecie(), mascota.getSexo());
+        Mascota nuevo= new Mascota(mascota.getEdad(), mascota.getNombre(), mascota.isVacunado(), mascota.getEspecie(), mascota.getSexo(), mascota.getPeso());
         mascotaService.registrar(nuevo);
         return ResponseEntity.status(201).body(nuevo);
     }
@@ -48,4 +54,18 @@ public class MascotaController {
     public ResponseEntity<Mascota> eliminarMascota(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
     }
+
+    /*
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
+    @GetMapping("/gordito")
+    public ResponseEntity<LambdaResponse> masGordito() {
+        RestClient restClient= RestClient.create();
+        LambdaResponse result=restClient.get()
+        .uri(lambdaBaseURL)
+        .retrieve()
+        .body(LambdaResponse.class);
+        
+        return ResponseEntity.status(200).body(result);
+    }
+    */
 }

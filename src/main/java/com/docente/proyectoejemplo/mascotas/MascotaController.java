@@ -2,8 +2,7 @@ package com.docente.proyectoejemplo.mascotas;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClient;
-import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.web.client.RestClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -20,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/mascotas")
 public class MascotaController {
 
-    @Value("${lambda.base.url}") 
-    private String lambdaBaseURL;
+    //@Value("${lambda.base.url}") 
+    //private String lambdaBaseURL;
 
     private final MascotaService mascotaService; 
 

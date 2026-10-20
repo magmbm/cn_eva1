@@ -12,7 +12,7 @@ import software.amazon.awssdk.services.lambda.LambdaClient;
 @Configuration
 public class AwsConfig {
 
-    @Value("${aws.region}")
+    @Value("${aws.region:us-east-1}")
     private String region;
 
     @Value("${aws.accessKeyId:}")

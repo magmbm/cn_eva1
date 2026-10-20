@@ -54,9 +54,11 @@ public class MascotaController {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
     }
 
+    /*
     @GetMapping ("/lambda")
     public ResponseEntity<Mascota> recuperarMascota() {
     }
+    */
 
     //
     /*

@@ -31,11 +31,13 @@ public class MascotaController {
         this.mascotaLambdaService= mascotaLambdaService;
     }
 
+    /*
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @GetMapping("/listar")
     public ResponseEntity<List<Mascota>> getAll() {
         return ResponseEntity.status(200).body( mascotaService.getAll());
     }
+    */
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
     @GetMapping("/listar/{id}")
@@ -45,7 +47,7 @@ public class MascotaController {
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @PostMapping("/registrar")
-    public ResponseEntity<Mascota> registrarMascota(@RequestBody  Mascota mascota) {
+    public ResponseEntity<Mascota> registrarMascota(@RequestBody Mascota mascota) {
         Mascota nuevo= new Mascota(mascota.getEdad(), mascota.getNombre(), mascota.isVacunado(), mascota.getEspecie(), mascota.getSexo(), mascota.getPeso());
         mascotaService.registrar(nuevo);
         return ResponseEntity.status(201).body(nuevo);
@@ -57,8 +59,8 @@ public class MascotaController {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
     }
 
-    @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
-    @GetMapping(value = "/lambda", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
+    @GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> recuperarMascotaDesdeLambda() {
         
         String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda("");

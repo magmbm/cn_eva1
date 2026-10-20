@@ -2,7 +2,7 @@ package com.docente.proyectoejemplo.mascotas;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestHeader;
+//import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -59,10 +59,9 @@ public class MascotaController {
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
     @GetMapping(value = "/lambda", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> recuperarMascotaDesdeLambda(
-            @RequestHeader(value = "id_mascota", required = false) String idMascota) {
+    public ResponseEntity<String> recuperarMascotaDesdeLambda() {
         
-        String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda(idMascota);
+        String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda("");
         return ResponseEntity.ok(respuestaJson);
     }
 

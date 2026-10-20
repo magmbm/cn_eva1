@@ -2,11 +2,14 @@ package com.docente.proyectoejemplo.mascotas;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.web.client.RestClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
+
+import com.docente.proyectoejemplo.lambda.LambdaService;
 import com.docente.proyectoejemplo.mascotas.entity.Mascota;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,8 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/mascotas")
 public class MascotaController {
 
-    //@Value("${lambda.base.url}") 
-    //private String lambdaBaseURL;
+    private final LambdaService lambdaService;
 
     private final MascotaService mascotaService; 
 
@@ -52,6 +54,11 @@ public class MascotaController {
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Mascota> eliminarMascota(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
+    }
+
+    @GetMapping ("/lambda")
+    public ResponseEntity<Mascota> recuperarMascota() {
+        return lambdaService.invocarLambdaSincrono("get_mascota", null);
     }
 
     //

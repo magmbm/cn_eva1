@@ -9,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
-import com.docente.proyectoejemplo.lambda.LambdaService;
 import com.docente.proyectoejemplo.mascotas.entity.Mascota;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/mascotas")
 public class MascotaController {
 
-    private final LambdaService lambdaService;
 
     private final MascotaService mascotaService; 
 
@@ -58,7 +56,6 @@ public class MascotaController {
 
     @GetMapping ("/lambda")
     public ResponseEntity<Mascota> recuperarMascota() {
-        return lambdaService.invocarLambdaSincrono("get_mascota", null);
     }
 
     //

@@ -21,19 +21,33 @@ public class AwsConfig {
     @Value("${aws.secretAccessKey:}")
     private String secretKey;
 
+    @Value("${aws.sessionToken:}")
+    private String sessionToken;
+
     @Bean
     public LambdaClient lambdaClient() {
+        AwsCredentialsProvider credentialsProvider;
+
+        // Si existen claves explícitas (por ejemplo en tu máquina local)
         if (!accessKey.isEmpty() && !secretKey.isEmpty()) {
-            AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey);
-            return LambdaClient.builder()
-                    .region(Region.of(region))
-                    .credentialsProvider(StaticCredentialsProvider.create(credentials))
-                    .build();
+            if (!sessionToken.isEmpty()) {
+                credentialsProvider = StaticCredentialsProvider.create(
+                        AwsSessionCredentials.create(accessKey, secretKey, sessionToken)
+                );
+            } else {
+                credentialsProvider = StaticCredentialsProvider.create(
+                        AwsBasicCredentials.create(accessKey, secretKey)
+                );
+            }
+        } else {
+            // Busca automáticamente en IMDS de la EC2 (LabRole) o en ~/.aws/credentials
+            credentialsProvider = DefaultCredentialsProvider.create();
         }
-        
-        // Toma automáticamente credenciales de IAM Role o AWS CLI si no se definen access/secret keys
+
         return LambdaClient.builder()
                 .region(Region.of(region))
+                .credentialsProvider(credentialsProvider)
                 .build();
     }
+
 }

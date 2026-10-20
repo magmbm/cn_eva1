@@ -2,14 +2,15 @@ package com.docente.proyectoejemplo.mascotas;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.web.client.RestClient;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
 import com.docente.proyectoejemplo.mascotas.entity.Mascota;
+import com.docente.proyectoejemplo.lambda.MascotaLambdaService; // 1. Importar el servicio Lambda
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +24,11 @@ public class MascotaController {
 
 
     private final MascotaService mascotaService; 
+    private final MascotaLambdaService mascotaLambdaService;
 
-    public MascotaController(MascotaService mascotaService) {
+    public MascotaController(MascotaService mascotaService, MascotaLambdaService mascotaLambdaService) {
         this.mascotaService= mascotaService;
+        this.mascotaLambdaService= mascotaLambdaService;
     }
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
@@ -52,6 +55,23 @@ public class MascotaController {
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Mascota> eliminarMascota(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
+    }
+
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
+    @GetMapping(value = "/lambda", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> recuperarMascotaDesdeLambda(
+            @RequestHeader(value = "id_mascota", required = false) String idMascota) {
+        
+        String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda(idMascota);
+        return ResponseEntity.ok(respuestaJson);
+    }
+
+    // 4. Opción alternativa si prefieres pasar el ID por URL (PathVariable)
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
+    @GetMapping(value = "/lambda/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> recuperarPorIdDesdeLambda(@PathVariable String id) {
+        String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda(id);
+        return ResponseEntity.ok(respuestaJson);
     }
 
     /*

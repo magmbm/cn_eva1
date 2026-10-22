@@ -7,7 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.docente.proyectoejemplo.mascotas.entity.Mascota;
 import com.docente.proyectoejemplo.lambda.MascotaLambdaService; // 1. Importar el servicio Lambda
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController 
 @RequestMapping("/api/mascotas")
@@ -59,40 +65,29 @@ public class MascotaController {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
     }
 
+    /*
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> recuperarMascotaDesdeLambda() {
         
-        String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda("");
+    String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda("");
+    return ResponseEntity.ok(respuestaJson);
+    }
+    */
+
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
+    @GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> recuperarMascotaDesdeLambda() {
+        String respuestaJson = mascotaLambdaService.invokeCrud("GET", null, null);
         return ResponseEntity.ok(respuestaJson);
     }
 
     // 4. Opción alternativa si prefieres pasar el ID por URL (PathVariable)
-    @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @GetMapping(value = "/lambda/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> recuperarPorIdDesdeLambda(@PathVariable String id) {
         String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda(id);
         return ResponseEntity.ok(respuestaJson);
     }
 
-    /*
-    @GetMapping ("/lambda")
-    public ResponseEntity<Mascota> recuperarMascota() {
-    }
-    */
-
-    //
-    /*
-    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
-    @GetMapping("/gordito")
-    public ResponseEntity<LambdaResponse> masGordito() {
-        RestClient restClient= RestClient.create();
-        LambdaResponse result=restClient.get()
-        .uri(lambdaBaseURL)
-        .retrieve()
-        .body(LambdaResponse.class);
-        
-        return ResponseEntity.status(200).body(result);
-    }
-    */
 }

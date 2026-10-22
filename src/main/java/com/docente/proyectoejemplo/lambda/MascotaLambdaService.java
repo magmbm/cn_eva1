@@ -3,6 +3,7 @@ package com.docente.proyectoejemplo.lambda;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.lambda.LambdaClient;
@@ -26,6 +27,11 @@ public class MascotaLambdaService {
     public MascotaLambdaService(LambdaClient lambdaClient, ObjectMapper objectMapper) {
         this.lambdaClient = lambdaClient;
         this.objectMapper = objectMapper;
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
     public String obtenerMascotasDesdeLambda(String idMascota) {

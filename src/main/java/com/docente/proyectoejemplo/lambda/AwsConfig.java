@@ -10,6 +10,7 @@ import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.LambdaClient;
+import tools.jackson.databind.ObjectMapper;
 
 
 
@@ -31,6 +32,11 @@ public class AwsConfig {
     @Bean
     public LambdaClient lambdaClient() {
         AwsCredentialsProvider credentialsProvider;
+
+        @Bean 
+        public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+        }
 
         // Si existen claves explícitas (por ejemplo en tu máquina local)
         if (!accessKey.isEmpty() && !secretKey.isEmpty()) {

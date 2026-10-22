@@ -17,6 +17,11 @@ import tools.jackson.databind.ObjectMapper;
 @Configuration
 public class AwsConfig {
 
+    @Bean 
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    };
+
     @Value("${aws.region:us-east-1}")
     private String region;
 
@@ -33,10 +38,6 @@ public class AwsConfig {
     public LambdaClient lambdaClient() {
         AwsCredentialsProvider credentialsProvider;
 
-        @Bean 
-        public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-        }
 
         // Si existen claves explícitas (por ejemplo en tu máquina local)
         if (!accessKey.isEmpty() && !secretKey.isEmpty()) {

@@ -19,6 +19,7 @@ import java.util.Map;
 public class MascotaLambdaService {
 
     private final LambdaClient lambdaClient;
+
     private final ObjectMapper objectMapper;
 
     @Value("${aws.lambda.function-name}")
@@ -27,11 +28,6 @@ public class MascotaLambdaService {
     public MascotaLambdaService(LambdaClient lambdaClient, ObjectMapper objectMapper) {
         this.lambdaClient = lambdaClient;
         this.objectMapper = objectMapper;
-    }
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
     }
 
     public String obtenerMascotasDesdeLambda(String idMascota) {

@@ -49,8 +49,7 @@ public class MascotaController {
     public ResponseEntity<Mascota> getMascota(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(mascotaService.getById(id));
     }
-    */
-
+    
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @PostMapping("/registrar")
     public ResponseEntity<Mascota> registrarMascota(@RequestBody Mascota mascota) {
@@ -58,12 +57,13 @@ public class MascotaController {
         mascotaService.registrar(nuevo);
         return ResponseEntity.status(201).body(nuevo);
     }
-
+    
     @PreAuthorize ("hasAnyRole('Admin')")
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Mascota> eliminarMascota(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(mascotaService.eliminar(id));
     }
+    */
 
     /*
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
@@ -88,6 +88,21 @@ public class MascotaController {
     @GetMapping(value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> recuperarPorIdDesdeLambda(@PathVariable String id) {
         String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda(id);
+        return ResponseEntity.ok(respuestaJson);
+    }
+
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
+    @PostMapping("/registrar")
+    public ResponseEntity<String> registrarMascota(@RequestBody Mascota mascota) {
+        Mascota nuevo= new Mascota(mascota.getEdad(), mascota.getNombre(), mascota.isVacunado(), mascota.getEspecie(), mascota.getSexo(), mascota.getPeso());
+        String respuestaJson= mascotaLambdaService.invokeCrud("POST", null, nuevo);
+        return ResponseEntity.status(201).body(respuestaJson);
+    }
+
+    @PreAuthorize ("hasAnyRole('Admin')")
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminarMascota(@PathVariable Integer id) {
+        String respuestaJson= mascotaLambdaService.invokeCrud("DELETE", null, id);
         return ResponseEntity.ok(respuestaJson);
     }
 

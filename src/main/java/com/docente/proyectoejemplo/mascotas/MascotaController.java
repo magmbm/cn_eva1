@@ -83,7 +83,7 @@ public class MascotaController {
     }
 
     // 4. Opción alternativa si prefieres pasar el ID por URL (PathVariable)
-    /
+    
     @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
     @GetMapping(value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> recuperarPorIdDesdeLambda(@PathVariable String id) {

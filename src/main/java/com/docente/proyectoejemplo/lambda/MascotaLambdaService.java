@@ -110,7 +110,7 @@ public class MascotaLambdaService {
                 .build();
 
         InvokeResponse response = lambdaClient.invoke(request);
-        return response.payload();
+        return response.payload().asString(StandardCharsets.UTF_8);
     }
 
     public String invokeCrud(String httpMethod, Map<String, String> headers, Object body) {

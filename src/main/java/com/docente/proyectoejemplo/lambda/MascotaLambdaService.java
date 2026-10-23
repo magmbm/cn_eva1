@@ -106,11 +106,11 @@ public class MascotaLambdaService {
 
         InvokeRequest request = InvokeRequest.builder()
                 .functionName(functionName)
-                .payload(SdkBytes.fromUtf8String(payloadJson))
+                .payload()
                 .build();
 
         InvokeResponse response = lambdaClient.invoke(request);
-        return response.payload().asString(StandardCharsets.UTF_8);
+        return response.payload();
     }
 
     public String invokeCrud(String httpMethod, Map<String, String> headers, Object body) {

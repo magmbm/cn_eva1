@@ -77,8 +77,8 @@ public class MascotaController {
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> recuperarMascotaDesdeLambda() {
-        String respuestaJson = mascotaLambdaService.invokeCrud("GET", null, null);
+    public ResponseEntity<List<Mascota>> recuperarMascotaDesdeLambda() {
+        List<Mascota> respuestaJson = mascotaLambdaService.invokeCrud("GET", null, null);
         return ResponseEntity.ok(respuestaJson);
     }
 

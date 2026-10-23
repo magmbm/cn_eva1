@@ -43,13 +43,13 @@ public class MascotaController {
     public ResponseEntity<List<Mascota>> getAll() {
         return ResponseEntity.status(200).body( mascotaService.getAll());
     }
-    */
-
+    
     @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
     @GetMapping("/listar/{id}")
     public ResponseEntity<Mascota> getMascota(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(mascotaService.getById(id));
     }
+    */
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @PostMapping("/registrar")
@@ -77,14 +77,14 @@ public class MascotaController {
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Mascota>> recuperarMascotaDesdeLambda() {
-        List<Mascota> respuestaJson = mascotaLambdaService.invokeCrud("GET", null, null);
+    public ResponseEntity<String> recuperarMascotaDesdeLambda() {
+        String respuestaJson = mascotaLambdaService.invokeCrud("GET", null, null);
         return ResponseEntity.ok(respuestaJson);
     }
 
     // 4. Opción alternativa si prefieres pasar el ID por URL (PathVariable)
-    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
-    @GetMapping(value = "/lambda/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
+    @GetMapping(value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> recuperarPorIdDesdeLambda(@PathVariable String id) {
         String respuestaJson = mascotaLambdaService.obtenerMascotasDesdeLambda(id);
         return ResponseEntity.ok(respuestaJson);

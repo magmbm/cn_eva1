@@ -106,7 +106,7 @@ public class MascotaLambdaService {
 
         InvokeRequest request = InvokeRequest.builder()
                 .functionName(functionName)
-                .payload()
+                .payload(SdkBytes.fromUtf8String(payloadJson))
                 .build();
 
         InvokeResponse response = lambdaClient.invoke(request);

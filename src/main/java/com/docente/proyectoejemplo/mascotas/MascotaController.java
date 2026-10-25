@@ -105,9 +105,10 @@ public class MascotaController {
         if (id > 0 && ((int)id== id)) {
             Map<String, String> idMap= new HashMap<String, String>();
             idMap.put("id_mascota", id.toString());
-            String respuestaJson= mascotaLambdaService.invokeCrud("DELETE",  idMap, null,null, null);
+            String respuestaJson= mascotaLambdaService.invokeCrud("DELETE",  null, idMap,null, null);
             return ResponseEntity.ok(respuestaJson);
         }
+        System.console().printf("Error con la id al eliminar", null);
         return ResponseEntity.badRequest().build();
     }
 

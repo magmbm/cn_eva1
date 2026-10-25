@@ -42,6 +42,7 @@ dependencies {
 
     implementation 'software.amazon.awssdk:lambda'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'software.amazon.awssdk:sns'
 }
 
 tasks.named('test') {

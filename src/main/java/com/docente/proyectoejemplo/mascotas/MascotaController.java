@@ -102,7 +102,8 @@ public class MascotaController {
     @PreAuthorize ("hasAnyRole('Admin')")
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarMascota(@PathVariable Integer id) {
-        String respuestaJson= mascotaLambdaService.invokeCrud("DELETE", null, id);
+        Map<String, String> idMap;
+        String respuestaJson= mascotaLambdaService.invokeCrud("DELETE",  idMap, null,null, null);
         return ResponseEntity.ok(respuestaJson);
     }
 

@@ -48,23 +48,6 @@ public class MascotaLambdaService {
         return response.payload().asString(StandardCharsets.UTF_8);
     }
 
-    public String crudMascotasLambda(String idMascota) {
-        String payloadJson;
-        if (idMascota != null && !idMascota.trim().isEmpty()) {
-            payloadJson = String.format("{\"method\": \"GET\", \"headers\": {\"id_mascota\": \"%s\"}}", idMascota);
-        } else {
-            payloadJson = "{\"method\": \"GET\", \"headers\": {}}";
-        }
-
-        InvokeRequest request = InvokeRequest.builder()
-                .functionName(functionName)
-                .payload(SdkBytes.fromUtf8String(payloadJson))
-                .build();
-
-        InvokeResponse response = lambdaClient.invoke(request);
-
-        return response.payload().asString(StandardCharsets.UTF_8);
-    }
 
     /**
      * Invoca la función Lambda enviando toda la información de la petición HTTP.

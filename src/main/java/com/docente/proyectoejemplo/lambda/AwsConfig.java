@@ -1,5 +1,6 @@
-package com.docente.proyectoejemplo.lambda;
+package com.docente.proyectoejemplo.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,17 +11,10 @@ import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.LambdaClient;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
+import software.amazon.awssdk.services.sns.SnsClient;
 
 @Configuration
 public class AwsConfig {
-
-    @Bean 
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    };
 
     @Value("${aws.region:us-east-1}")
     private String region;
@@ -34,31 +28,41 @@ public class AwsConfig {
     @Value("${aws.sessionToken:}")
     private String sessionToken;
 
-    @Bean
-    public LambdaClient lambdaClient() {
-        AwsCredentialsProvider credentialsProvider;
+    @Bean 
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
 
-
-        // Si existen claves explícitas (por ejemplo en tu máquina local)
+    /**
+     * Método auxiliar para resolver las credenciales de forma dinámica
+     */
+    private AwsCredentialsProvider getCredentialsProvider() {
         if (!accessKey.isEmpty() && !secretKey.isEmpty()) {
             if (!sessionToken.isEmpty()) {
-                credentialsProvider = StaticCredentialsProvider.create(
+                return StaticCredentialsProvider.create(
                         AwsSessionCredentials.create(accessKey, secretKey, sessionToken)
                 );
-            } else {
-                credentialsProvider = StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create(accessKey, secretKey)
-                );
             }
-        } else {
-            // Busca automáticamente en IMDS de la EC2 (LabRole) o en ~/.aws/credentials
-            credentialsProvider = DefaultCredentialsProvider.create();
+            return StaticCredentialsProvider.create(
+                    AwsBasicCredentials.create(accessKey, secretKey)
+            );
         }
+        return DefaultCredentialsProvider.create();
+    }
 
+    @Bean
+    public LambdaClient lambdaClient() {
         return LambdaClient.builder()
                 .region(Region.of(region))
-                .credentialsProvider(credentialsProvider)
+                .credentialsProvider(getCredentialsProvider())
                 .build();
     }
 
+    @Bean
+    public SnsClient snsClient() {
+        return SnsClient.builder()
+                .region(Region.of(region))
+                .credentialsProvider(getCredentialsProvider())
+                .build();
+    }
 }

@@ -22,7 +22,7 @@ public class MascotaLambdaService {
 
     private final ObjectMapper objectMapper;
 
-    @Value("${aws.lambda.function-name}")
+    @Value("${aws.lambda.function-name-mascotas}")
     private String functionName;
 
     public MascotaLambdaService(LambdaClient lambdaClient, ObjectMapper objectMapper) {

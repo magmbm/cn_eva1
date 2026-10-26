@@ -29,11 +29,9 @@ import jakarta.servlet.http.HttpServletRequest;
 public class MascotaController {
 
 
-    private final MascotaService mascotaService; 
     private final MascotaLambdaService mascotaLambdaService;
 
-    public MascotaController(MascotaService mascotaService, MascotaLambdaService mascotaLambdaService) {
-        this.mascotaService= mascotaService;
+    public MascotaController(MascotaLambdaService mascotaLambdaService) {
         this.mascotaLambdaService= mascotaLambdaService;
     }
 

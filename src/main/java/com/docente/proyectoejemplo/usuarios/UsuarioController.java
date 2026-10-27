@@ -53,6 +53,7 @@ public class UsuarioController {
         System.out.println("Viendo la peticion");
         System.out.println(nuevo);
         String respuestaJson= usuarioLambdaService.invokeCrud("POST", null, nuevo);
+        System.out.println(respuestaJson);
         return ResponseEntity.status(201).body(respuestaJson);
     }
 

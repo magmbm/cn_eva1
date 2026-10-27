@@ -1,8 +1,8 @@
 package com.docente.proyectoejemplo.citas;
 
 import com.docente.proyectoejemplo.aws.SnsPublisherService;
-
-import org.apache.catalina.connector.Response;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +17,11 @@ import java.util.Map;
 public class CitasController {
 
     private final SnsPublisherService snSPublisherService;
+    private final ObjectMapper objectMapper;
 
-    public CitasController(SnsPublisherService snSPublisherService) {
+    public CitasController(SnsPublisherService snSPublisherService, ObjectMapper objectMapper) {
         this.snSPublisherService = snSPublisherService;
+        this.objectMapper = objectMapper;
     }
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
@@ -30,11 +32,24 @@ public class CitasController {
 
     @PreAuthorize("hasAnyRole('Admin', 'Vet', 'Owner')")
     @PostMapping("/registrar")
-    public ResponseEntity<String> registrarCita(@RequestBody Map<String, String> request) {
-        String mensaje = request.get("mensaje");
-        String asunto = request.get("asunto");
-        String messageId = snSPublisherService.publicarMensaje(mensaje, asunto);
+    public ResponseEntity<String> registrarCita(@RequestBody Map<String, Object> request) throws JsonProcessingException {
+        
+        // 1. Extraer el asunto (o asignar un valor por defecto)
+        String asunto = request.containsKey("asunto") 
+                ? request.get("asunto").toString() 
+                : "Nueva Cita";
+
+        // 2. Si la petición incluye un objeto 'cita' anidado, lo usamos; si no, usamos el body directo
+        Object datosCita = request.containsKey("cita") ? request.get("cita") : request;
+
+        // 3. Serializar el objeto a JSON String preservando números y cadenas
+        String mensajeJson = objectMapper.writeValueAsString(datosCita);
+
+        // 4. Publicar en SNS
+        String messageId = snSPublisherService.publicarMensaje(mensajeJson, asunto);
+        
         return ResponseEntity.ok(messageId);
     }
+
 
 }

@@ -16,7 +16,7 @@ public class Usuario {
     private Integer numrun_usuario;
 
     @Column 
-    private String nomnbre_usuario;
+    private String nombre_usuario;
 
     @Column 
     private String papellido_usuario;
@@ -34,10 +34,10 @@ public class Usuario {
 
     }
 
-    public Usuario(Integer numrun_usuario, String nomnbre_usuario, String papellido_usuario, String sapellido_usuario,
+    public Usuario(Integer numrun_usuario, String nombre_usuario, String papellido_usuario, String sapellido_usuario,
             String email_usuario, String dvrun_usuario) {
         this.numrun_usuario = numrun_usuario;
-        this.nomnbre_usuario = nomnbre_usuario;
+        this.nombre_usuario = nombre_usuario;
         this.papellido_usuario = papellido_usuario;
         this.sapellido_usuario = sapellido_usuario;
         this.email_usuario = email_usuario;
@@ -56,11 +56,11 @@ public class Usuario {
     public void setNumrun_usuario(Integer numrun_usuario) {
         this.numrun_usuario = numrun_usuario;
     }
-    public String getNomnbre_usuario() {
-        return nomnbre_usuario;
+    public String getNombre_usuario() {
+        return nombre_usuario;
     }
-    public void setNomnbre_usuario(String nomnbre_usuario) {
-        this.nomnbre_usuario = nomnbre_usuario;
+    public void setNombre_usuario(String nombre_usuario) {
+        this.nombre_usuario = nombre_usuario;
     }
     public String getPapellido_usuario() {
         return papellido_usuario;

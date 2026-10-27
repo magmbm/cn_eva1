@@ -106,7 +106,6 @@ public class MascotaController {
             String respuestaJson= mascotaLambdaService.invokeCrud("DELETE",  null, idMap,null, null);
             return ResponseEntity.ok(respuestaJson);
         }
-        System.console().printf("Error con la id al eliminar", null);
         return ResponseEntity.badRequest().build();
     }
 

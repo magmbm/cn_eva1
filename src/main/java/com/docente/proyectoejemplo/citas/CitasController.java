@@ -14,9 +14,9 @@ import java.util.Map;
 @RequestMapping("/api/citas")
 public class CitasController {
 
-    private final SnSPublisherService snSPublisherService;
+    private final SnsPublisherService snSPublisherService;
 
-    public CitasController(SnSPublisherService snSPublisherService) {
+    public CitasController(SnsPublisherService snSPublisherService) {
         this.snSPublisherService = snSPublisherService;
     }
 

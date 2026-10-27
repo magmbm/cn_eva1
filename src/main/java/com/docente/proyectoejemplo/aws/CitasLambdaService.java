@@ -18,7 +18,7 @@ import java.util.Map;
 @Service
 public class CitasLambdaService {
     
-    private final lambdaClient lambdaClient;
+    private final LambdaClient lambdaClient;
 
     private final ObjectMapper objectMapper;
 

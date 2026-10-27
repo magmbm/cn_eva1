@@ -32,14 +32,15 @@ public class UsuarioController {
 
     @PreAuthorize ("hasAnyRole('Admin', 'Owner')")
     @GetMapping (value = "/registrado")
-    public ResponseEntity<String> usuarioRegistrado(@RequestHeader("email_usuario") String email) {
+    public ResponseEntity<UsuarioRegistradoResponse> usuarioRegistrado(@RequestHeader("email_usuario") String email) {
         Map<String, String> emailMap= new HashMap<String, String>();
         emailMap.put("email_usuario", email);
         String usuarioRegistrado= usuarioLambdaService.invokeCrud("GET", emailMap, null);
         System.out.println("Respuesta del invokeCrud REGISTRADO");
         System.out.println(usuarioRegistrado);
         System.out.println(email);
-        return ResponseEntity.status(200).body(usuarioRegistrado);
+        UsuarioRegistradoResponse respuesta= new UsuarioRegistradoResponse(Boolean.valueOf(usuarioRegistrado));
+        return ResponseEntity.status(200).body(respuesta);
     }
 
 }

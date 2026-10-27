@@ -1,11 +1,34 @@
 package com.docente.proyectoejemplo.usuarios.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity 
 public class Usuario {
-    private Integer id_usuario, numrun_usuario;
-    private String nomnbre_usuario, papellido_usuario, sapellido_usuario, email_usuario, dvrun_usuario;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_usuario;
+
+    @Column 
+    private Integer numrun_usuario;
+
+    @Column 
+    private String nomnbre_usuario;
+
+    @Column 
+    private String papellido_usuario;
+
+    @Column 
+    private String sapellido_usuario; 
+
+    @Column 
+    private String email_usuario; 
+    
+    @Column 
+    private String dvrun_usuario;
 
     public Usuario() {
 

@@ -38,6 +38,7 @@ public class UsuarioController {
         String usuarioRegistrado= usuarioLambdaService.invokeCrud("GET", emailMap, null);
         System.out.println("Respuesta del invokeCrud REGISTRADO");
         System.out.println(usuarioRegistrado);
+        System.out.println(email);
         return ResponseEntity.status(200).body(usuarioRegistrado);
     }
 

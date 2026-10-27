@@ -1,4 +1,4 @@
-package com.docente.proyectoejemplo.config;
+package com.docente.proyectoejemplo.aws;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;

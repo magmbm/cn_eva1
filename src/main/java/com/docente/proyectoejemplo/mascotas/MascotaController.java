@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.docente.proyectoejemplo.aws.MascotaLambdaService;
 import com.docente.proyectoejemplo.mascotas.entity.Mascota;
-import com.docente.proyectoejemplo.lambda.MascotaLambdaService; // 1. Importar el servicio Lambda
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

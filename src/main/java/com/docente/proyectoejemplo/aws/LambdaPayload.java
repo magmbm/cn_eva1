@@ -1,4 +1,4 @@
-package com.docente.proyectoejemplo.lambda;
+package com.docente.proyectoejemplo.aws;
 
 import com.docente.proyectoejemplo.mascotas.entity.Mascota;
 

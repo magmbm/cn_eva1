@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.docente.proyectoejemplo.lambda.UsuarioLambdaService;
+
+import com.docente.proyectoejemplo.aws.UsuarioLambdaService;
 import com.docente.proyectoejemplo.usuarios.entity.Usuario;
 
 

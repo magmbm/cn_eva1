@@ -27,7 +27,7 @@ public class UsuarioController {
         this.usuarioLambdaService= usuarioLambdaService;
     }
 
-    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
     @GetMapping (value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> recuperarUsuarioDesdeLambda() {
         String respuestaJson = usuarioLambdaService.invokeCrud("GET", null, null);

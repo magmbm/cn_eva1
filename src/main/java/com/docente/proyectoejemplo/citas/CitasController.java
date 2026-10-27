@@ -1,6 +1,8 @@
 package com.docente.proyectoejemplo.citas;
 
 import com.docente.proyectoejemplo.aws.SnsPublisherService;
+
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,12 @@ public class CitasController {
 
     public CitasController(SnsPublisherService snSPublisherService) {
         this.snSPublisherService = snSPublisherService;
+    }
+
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
+    @PostMapping ("/listar")
+    public ResponseEntity<String> listarCitas() {
+        return ResponseEntity.status(200).body(null);
     }
 
     @PreAuthorize("hasAnyRole('Admin', 'Vet', 'Owner')")

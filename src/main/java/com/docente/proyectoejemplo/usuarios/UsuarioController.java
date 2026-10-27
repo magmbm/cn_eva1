@@ -7,10 +7,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.docente.proyectoejemplo.lambda.UsuarioLambdaService;
+import com.docente.proyectoejemplo.usuarios.entity.Usuario;
 
 
 @RestController 
@@ -42,5 +45,14 @@ public class UsuarioController {
         UsuarioRegistradoResponse respuesta= new UsuarioRegistradoResponse(Boolean.valueOf(usuarioRegistrado));
         return ResponseEntity.status(200).body(respuesta);
     }
+
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
+    @PostMapping ("/registrar")
+    public ResponseEntity<String> registraUsuario(@RequestBody Usuario usuario) {
+        Usuario nuevo= new Usuario(usuario.getNumrun_usuario(), usuario.getNomnbre_usuario(), usuario.getPapellido_usuario(), usuario.getSapellido_usuario(), usuario.getEmail_usuario(), usuario.getDvrun_usuario());
+        String respuestaJson= usuarioLambdaService.invokeCrud("POST", null, nuevo);
+        return ResponseEntity.status(201).body(respuestaJson);
+    }
+
 
 }

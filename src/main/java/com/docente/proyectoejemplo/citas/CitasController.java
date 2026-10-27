@@ -1,5 +1,6 @@
 package com.docente.proyectoejemplo.citas;
 
+import com.docente.proyectoejemplo.aws.CitasLambdaService;
 import com.docente.proyectoejemplo.aws.SnsPublisherService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,16 +19,19 @@ public class CitasController {
 
     private final SnsPublisherService snSPublisherService;
     private final ObjectMapper objectMapper;
+    private CitasLambdaService citasLambdaService;
 
-    public CitasController(SnsPublisherService snSPublisherService, ObjectMapper objectMapper) {
+    public CitasController(SnsPublisherService snSPublisherService, ObjectMapper objectMapper, CitasLambdaService citasLambdaService) {
         this.snSPublisherService = snSPublisherService;
         this.objectMapper = objectMapper;
+        this.citasLambdaService= citasLambdaService;
     }
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet')")
     @PostMapping ("/listar")
     public ResponseEntity<String> listarCitas() {
-        return ResponseEntity.status(200).body(null);
+        String respuestaJson= citasLambdaService.invokeCrud("GET", null, null);
+        return ResponseEntity.status(200).body(respuestaJson);
     }
 
     @PreAuthorize("hasAnyRole('Admin', 'Vet', 'Owner')")

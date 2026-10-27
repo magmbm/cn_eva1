@@ -36,6 +36,7 @@ public class UsuarioController {
         Map<String, String> emailMap= new HashMap<String, String>();
         emailMap.put("email_usuario", email);
         String usuarioRegistrado= usuarioLambdaService.invokeCrud("GET", emailMap, null);
+        System.out.println("Respuesta del invokeCrud REGISTRADO");
         System.out.println(usuarioRegistrado);
         return ResponseEntity.status(200).body(usuarioRegistrado);
     }

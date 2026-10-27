@@ -1,6 +1,6 @@
 package com.docente.proyectoejemplo.citas;
 
-import com.docente.proyectoejemplo.aws.SnSPublisherService;
+import com.docente.proyectoejemplo.aws.SnsPublisherService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,7 @@ public class CitasController {
     @PreAuthorize("hasAnyRole('Admin', 'Vet', 'Owner')")
     @PostMapping("/registrar")
     public ResponseEntity<String> registrarCita(@RequestBody Map<String, String> request) {
-        String mensaje = request.get("   mensaje");
+        String mensaje = request.get("mensaje");
         String asunto = request.get("asunto");
         String messageId = snSPublisherService.publicarMensaje(mensaje, asunto);
         return ResponseEntity.ok(messageId);

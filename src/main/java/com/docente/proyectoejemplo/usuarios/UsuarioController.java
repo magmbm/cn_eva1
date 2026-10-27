@@ -48,8 +48,10 @@ public class UsuarioController {
 
     @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
     @PostMapping ("/registrar")
-    public ResponseEntity<String> registraUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<String> registrarUsuario(@RequestBody Usuario usuario) {
         Usuario nuevo= new Usuario(usuario.getNumrun_usuario(), usuario.getNomnbre_usuario(), usuario.getPapellido_usuario(), usuario.getSapellido_usuario(), usuario.getEmail_usuario(), usuario.getDvrun_usuario());
+        System.out.println("Viendo la peticion");
+        System.out.println(nuevo);
         String respuestaJson= usuarioLambdaService.invokeCrud("POST", null, nuevo);
         return ResponseEntity.status(201).body(respuestaJson);
     }

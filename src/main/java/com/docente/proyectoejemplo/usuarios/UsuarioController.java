@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -33,6 +34,16 @@ public class UsuarioController {
         String respuestaJson = usuarioLambdaService.invokeCrud("GET", null, null);
         return ResponseEntity.ok(respuestaJson);
     }
+
+    @PreAuthorize ("hasAnyRole('Admin', 'Vet', 'Owner')")
+    @GetMapping (value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> recuperarUsuarioDesdeLambda(@PathVariable Integer id) {
+        Map<String, String> idMap= new HashMap<String, String>();
+        idMap.put("id_usuario", id.toString());
+        String respuestaJson = usuarioLambdaService.invokeCrud("GET", idMap, null);
+        return ResponseEntity.ok(respuestaJson);
+    }
+
 
     @PreAuthorize ("hasAnyRole('Admin', 'Owner')")
     @GetMapping (value = "/registrado")

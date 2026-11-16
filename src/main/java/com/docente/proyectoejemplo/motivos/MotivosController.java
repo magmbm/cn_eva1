@@ -24,7 +24,7 @@ public class MotivosController {
     private final ObjectMapper objectMapper;
     private MotivosLambdaService motivosLambdaService;
 
-    public MotivosController(SnsPublisherService snSPublisherService, ObjectMapper objectMapper, CitasLambdaService motivosLambdaService) {
+    public MotivosController(SnsPublisherService snSPublisherService, ObjectMapper objectMapper, MotivosLambdaService motivosLambdaService) {
         this.snSPublisherService = snSPublisherService;
         this.objectMapper = objectMapper;
         this.motivosLambdaService= motivosLambdaService;
@@ -39,7 +39,7 @@ public class MotivosController {
 
     @PreAuthorize("hasAnyRole('Admin', 'Vet', 'Owner')")
     @PostMapping("/registrar")
-    public ResponseEntity<String> registrarCita(@RequestBody Map<String, Object> request) throws JsonProcessingException {
+    public ResponseEntity<String> registrarMotivo(@RequestBody Map<String, Object> request) throws JsonProcessingException {
         
         String asunto = request.containsKey("asunto") 
                 ? request.get("asunto").toString() 
